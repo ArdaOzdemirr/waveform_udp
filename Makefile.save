@@ -1,0 +1,25 @@
+
+CXX = g++
+CXXFLAGS = -std=c++17 -Wall -g
+LDFLAGS = 
+SRCS = Device.cpp Gonderen.cpp Kullanici.cpp Waveform.cpp main.cpp
+OBJS = $(SRCS:.cpp=.o)
+
+TARGET = waveform_app
+
+.PHONY: all clean
+
+# Varsayılan hedef: Tüm projeyi derle
+all: $(TARGET)
+
+# Ana yürütülebilir dosyayı oluşturma kuralı
+$(TARGET): $(OBJS)
+	$(CXX) $(OBJS) -o $(TARGET) $(LDFLAGS)
+
+# .cpp dosyalarını .o nesne dosyalarına derleme kuralı
+%.o: %.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+# Projeyi temizleme kuralı: Nesne dosyalarını ve yürütülebilir dosyayı siler
+clean:
+	rm -f $(OBJS) $(TARGET)
